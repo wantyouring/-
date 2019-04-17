@@ -1,5 +1,4 @@
 # 선형회귀 기초예제
-#(?) cost에 reduce_mean하는 이유 잘 모르겠음.
 
 import tensorflow as tf
 import os
@@ -15,18 +14,12 @@ X = tf.placeholder(tf.float32)
 Y = tf.placeholder(tf.float32)
 H = W*X + b #예측값
 #(예측값 - Y)^2 이 최소가 되게 optimize하기
-# cost = tf.reduce_mean(tf.square(H-Y))
-#print('before',tf.square(H-Y))
-cost = tf.reduce_mean(tf.square(H-Y))
-#print('after',tf.reduce_mean(tf.square(H-Y)))
+cost = tf.reduce_mean(tf.square(H-Y)) #차원 줄이고 평균값 구하기 위해서 사용!
 optimizer = tf.train.GradientDescentOptimizer(tf.Variable(0.01))
 train = optimizer.minimize(cost)
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-
-#print('before',sess.run(tf.square(H-Y)))
-#print('after',sess.run(tf.reduce_mean(tf.square(H-Y))))
 
 for i in range(5001):
     sess.run(train, feed_dict={X : xData, Y : yData})
