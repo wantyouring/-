@@ -3,5 +3,7 @@
 
 # 참고 사이트
 https://codeonweb.com/entry/12045839-0aa9-4bad-8c7e-336b89401e10
-https://gym.openai.com/
+
+https://gym.openai.com/ (open gym)
+
 https://wikidocs.net/21 (파이썬 기본 문법)
