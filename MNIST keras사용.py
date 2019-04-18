@@ -1,5 +1,3 @@
-# 정확도 0.92까지.
-
 from keras.utils import np_utils
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -30,13 +28,14 @@ y_test = np_utils.to_categorical(y_test)
 model = Sequential()
 # units : 출력 개수, input_dim : 입력 개수, activation : 활성화 함수
 model.add(Dense(units=64, input_dim=28*28, activation='relu')) #layer stacking.
+model.add(Dense(units=32, activation='relu'))
 model.add(Dense(units=10, activation='softmax'))
 
 # loss함수, optimizer, 평가기준(metrics) -> metrics 지정하면 accuracy도 나옴. 원래는 loss만 나온다.
 model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])
 # model.fit()은 학습. (입력 데이터, 라벨, 학습 epoch 횟수, 배치 크기)
 # epoch : 학습용 데이터 전체를 한 번 사용했을 시 1epoch
-hist = model.fit(x_train, y_train, epochs=5, batch_size=32)
+hist = model.fit(x_train, y_train, epochs=20, batch_size=32)
 
 # 5번 epoch 각각의 loss, 정확도 프린트.
 print('## training loss and acc ##')
@@ -44,10 +43,12 @@ print(hist.history['loss'])
 print(hist.history['acc'])
 
 # 모델 평가. loss와 정확도 출력.
+print('\nAccuracy : {}'.format(model.evaluate(x_test,y_test)[1]))
+'''
 loss_and_metrics = model.evaluate(x_test, y_test, batch_size=32)
 print('## evaluation loss and_metrics ##')
 print(loss_and_metrics)
-
+'''
 # 모델 예측. 데이터를 넣고 예측값 확인.
 xhat = x_test[0:1]
 yhat = model.predict(xhat)
