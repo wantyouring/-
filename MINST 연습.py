@@ -11,7 +11,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    #경고메세지 무시
 x = tf.placeholder(tf.float32, [None, 784])
 
 #모델 파라미터
-W = tf.Variable(tf.zeros([784,10]))
+W = tf.Variable(tf.zeros([784,10])) #784개의 input크기, 10개의 output크기 맞춤.
 b = tf.Variable(tf.zeros([10]))
 
 #softmax 모델 구현, y_선언
