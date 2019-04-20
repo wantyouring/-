@@ -14,3 +14,6 @@ https://datascienceschool.net/view-notebook/51e147088d474fe1bf32e394394eaea7/ (�
 
 https://neurowhai.tistory.com/133 (케라스 MNIST)
 
+https://keon.io/deep-q-learning/ (케라스 dqn cartpole)
+
+https://github.com/hunkim/ReinforcementZeroToAll (김성훈 교수 RL)
