@@ -152,7 +152,7 @@ def main():
 
             graph_x.append(episode)
             graph_y.append(step_count)
-            if step_count % 50 == 0 :
+            if episode % 50 == 0 :
                 pylab.plot(graph_x, graph_y, 'b')
                 pylab.savefig("./cart_save2/cartpole_dqn.png")
 

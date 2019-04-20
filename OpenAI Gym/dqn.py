@@ -1,6 +1,6 @@
 """DQN Class
-DQN(NIPS-2013)
-"Playing Atari with Deep Reinforcement Learning"
+DQN(NIPS-2013)2015 cartpole
+"Playing Atari with Deep Reinforcement L2015 cartpoleearning"
 https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
 DQN(Nature-2015)
 "Human-level control through deep reinforcement learning"
