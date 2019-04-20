@@ -20,7 +20,7 @@ env.reset()
 space, reward, done, _ = env.step(env.action_space.sample())
 
 #print("observation space n : {}".format(env.observation_space.n))
-print("action space n : {}".format(env.action_space))
+print("action space: {}".format(env.action_space))
 print("observation space shape : {}".format(env.observation_space))
 print("sample action : {}".format(env.action_space.sample()))
 print("sample reward : {}".format(reward))

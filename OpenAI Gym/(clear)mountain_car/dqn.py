@@ -30,7 +30,7 @@ class DQN:
 
         self._build_network()
 
-    def _build_network(self, h_size=16, l_rate=0.001) -> None:
+    def _build_network(self, h_size=32, l_rate=0.001) -> None:
         """DQN Network architecture (simple MLP)
         Args:
             h_size (int, optional): Hidden layer dimension
@@ -39,7 +39,7 @@ class DQN:
         with tf.variable_scope(self.net_name):
             self._X = tf.placeholder(tf.float32, [None, self.input_size], name="input_x")
             net = self._X
-
+            # net = tf.layers.dense(net, 32, activation=tf.nn.relu) # layer추가
             net = tf.layers.dense(net, h_size, activation=tf.nn.relu)
             net = tf.layers.dense(net, self.output_size)
             self._Qpred = net

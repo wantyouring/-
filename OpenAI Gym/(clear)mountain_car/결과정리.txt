@@ -1,0 +1,40 @@
+﻿### mountain_car 학습 정리 ###
+
+---(1번째)dqn_graph.png 학습 :
+h_size = 16
+reward : 
+ㄴ goal도착 = +100
+ㄴ 실패 = -1
+
+결과 : 약 2400회부터 도착 시작
+
+---(2번째)dqn_graph.png 학습 :
+h_size = 16
+reward :
+ㄴ goal 도착 = +100
+ㄴ 실패 = -1
+ㄴ 안끝난 상황 = +state 높이 (높을 수록 큰 reward)
+
+결과 : 약 700회부터 도착 시작
+
+---(3번째)dqn_graph.png 학습 :
+h_size = 32
+reward : 2번째와 똑같이.
+
+결과 : 약 500회부터 도착 시작. (2번째)와 비교해 중간 reward층 step_count가 낮아져 더 좋은 결과 나옴.
+
+---(4번째)dqn_graph.png 학습 :
+h_size = 32
+reward : 
+ㄴ goal 도착 = 300 - step_count (일찍 도착할 수록 높은 reward)
+ㄴ 실패 = -1
+ㄴ 안끝난 상황 = +state 높이
+
+결과 : (3번째)와 크게 차이 없음.
+
+---(5번째)dqn_graph.png 학습 :
+
+h_size = 32,32 (32size layer 하나 더 추가.)
+reward : 2번째와 똑같이.
+
+결과 : 약 300회부터 도착 시작. 낮은 step_count에 많이 보이나 실패하는 경우도 많음.
