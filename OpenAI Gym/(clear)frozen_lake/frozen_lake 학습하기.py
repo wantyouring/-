@@ -2,19 +2,20 @@
 # (아직 keras 잘 안되므로 김성훈교수님 2015 dqn 사용)keras로 frozen lake에 적용해보자.
 # 5000 episode까지 학습한 성공률 0.6674.
 # 학습 성공.
+# 모델 저장 및 불러오기 추가해보자. (추가 완료)
+# keras로도 바꿔보자.
 import numpy as np
 import tensorflow as tf
 import random
 from collections import deque
 import dqn
 import pylab
-
 import gym
 from typing import List
 
 env = gym.make('FrozenLake-v0')
-
-INPUT_SIZE = env.observation_space.n    #one hot 인코딩해서 input size 16가능
+save_file = './model.ckpt'
+INPUT_SIZE = env.observation_space.n    #one hot 인코딩해서 input size 16가능. one hot 인코딩 안하고 학습하니 학습이 아예 안된다!
 OUTPUT_SIZE = env.action_space.n
 
 DISCOUNT_RATE = 0.99
@@ -22,6 +23,7 @@ REPLAY_MEMORY = 50000
 BATCH_SIZE = 64
 TARGET_UPDATE_FREQUENCY = 5
 MAX_EPISODES = 5000
+LOAD_MODEL = True
 
 def one_hot(x):
     return np.identity(16)[x:x+1]
@@ -102,7 +104,12 @@ def main():
     with tf.Session() as sess:
         mainDQN = dqn.DQN(sess, INPUT_SIZE, OUTPUT_SIZE, name="main")
         targetDQN = dqn.DQN(sess, INPUT_SIZE, OUTPUT_SIZE, name="target")
-        sess.run(tf.global_variables_initializer())
+
+        saver = tf.train.Saver()
+        if LOAD_MODEL == False :
+            sess.run(tf.global_variables_initializer())
+        elif LOAD_MODEL == True :
+            saver.restore(sess, save_file)
 
         # initial copy q_net -> target_net
         copy_ops = get_copy_var_ops(dest_scope_name="target",
@@ -151,12 +158,13 @@ def main():
 
             graph_x.append(episode)
             graph_y.append(reward)
-            if episode % 50 == 0 :
-                if episode == 0 :
-                    continue
+            if episode % 50 == 0 and episode != 0:
                 pylab.plot(graph_x, graph_y)
                 pylab.savefig("./frozen_save/frozen_lake_dqn.png")
                 print("Episode: {} 까지 성공률: {}".format(episode, success_cnt / episode))
+            if episode % 500 == 0 and episode != 0:
+                saver.save(sess, save_file)  # 50주기마다 모델 save
+                print("Episode: {} 모델 저장 완료".format(episode))
 
 
 if __name__ == "__main__":
