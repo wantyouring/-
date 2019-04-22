@@ -1,0 +1,36 @@
+# 메모리초과로 REPLAY_MEMORY를 줄여줌.
+# frozen lake과 같이 500개 정수인 observation space를 원핫인코딩 해줌.
+# hidden layer 64,32로 두 개 사용.
+파이참 기본 메모리 800MB 사용.
+### decaying e-greedy를 수정해 탐색을 높여 해결
+
+1.
+replay_memory 50000에서 500으로 줄이고 메모리3GB
+(?)-200에 수렴함
+
+2.
+hidden layer 512,256 두 개로 사용
+또 -200으로 수렴함
+
+3.
+batch_size 32->128로 늘려봄
+또 -200으로 수렴
+
+4.
+l_rate=0.001->0.00001로 줄여봄
+또 -200 수렴
+
+5.
+l_rate=0.001->0.1로 늘려봄
+-200수렴
+
+6.
+replay_memory 2000까지 늘림 => 메모리8.5GB사용.
+batch_size 128
+hidden layer 512,256
+
+7.
+decaying e-greedy를 e = 1. / ((episode / 10) + 1) => e = 1. / ((episode / 100) + 1)로 바꿔 탐색확률 높였더니 성공!
+batch_size 32
+l_rate=0.001
+hidden layer 64,32
