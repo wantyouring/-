@@ -1,0 +1,6 @@
+랜덤실행
+- 대부분 500step까지 성공 못함.
+hidden layer 1층 :
+- 100step 정도까지 학습해 성공.
+hidden layer 2층 :
+- hidden layer 1층보다 후반에 더 안정적임. 튀는 episode가 없음.
