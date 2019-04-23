@@ -1,0 +1,10 @@
+random_act.
+랜덤수행으로 100epi total reward 0이상 잘 안넘어감. 
+
+1dqn_graph.
+랜덤수행보다 결과 좋으나 특정 값에 수렴하지는 않음(블랙잭 환경 특성상)
+
+2dqn_graph.
+e greedy 수정
+e = 1. / ((episode / 100) + 1) => e = 1. / ((episode / 10000) + 1)
+1dqn_graph와 특별한 차이점 없는듯함.
