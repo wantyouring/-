@@ -1,0 +1,4 @@
+https://github.com/rlcode/reinforcement-learning/blob/master/2-cartpole/2-double-dqn/cartpole_ddqn.py
+에서 DoubleDQN keras로 구현된 모델 찾음.
+cartpole-v1 잘 학습됨.
+이 DDQN agent 기반으로 CNN환경 학습해보자.
