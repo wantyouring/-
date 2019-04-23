@@ -8,3 +8,7 @@ random_act.
 e greedy 수정
 e = 1. / ((episode / 100) + 1) => e = 1. / ((episode / 10000) + 1)
 1dqn_graph와 특별한 차이점 없는듯함.
+
+3dqn_graph
+state원핫인코딩을 하지 않고 그대로 넣어 학습.
+-> 원핫인코딩 한 것과 결과가 똑같다.
