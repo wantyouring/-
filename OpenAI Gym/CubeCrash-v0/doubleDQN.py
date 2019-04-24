@@ -3,14 +3,14 @@
 import numpy as np
 import random
 from collections import deque
-from keras.layers import Dense
+from keras.layers.convolutional import Conv2D
+from keras.layers import Dense, Flatten
 from keras.optimizers import Adam
 from keras.models import Sequential
 
 class DoubleDQNAgent:
     def __init__(self, state_size, action_size):
         self.render = False
-        self.load_model = False
 
         self.state_size = state_size
         self.action_size = action_size
@@ -21,10 +21,11 @@ class DoubleDQNAgent:
         self.epsilon = 1.0
         self.epsilon_decay = 0.999
         self.epsilon_min = 0.01
-        self.batch_size = 64
-        self.train_start = 1000
-        self.update_target_rate = 2000
-        self.memory = deque(maxlen=2000)
+        self.batch_size = 32
+        self.train_start = 10000
+        self.update_target_rate = 3000
+        self.memory = deque(maxlen=50000)
+        self.avg_q_max = 0 # 학습 잘 되는지 확인.
 
         # 학습모델, 타겟모델 두 개 생성.
         self.model = self.build_model()
@@ -33,20 +34,22 @@ class DoubleDQNAgent:
         # 타겟모델 초기화.
         self.update_target_model()
 
-        if self.load_model:
-            self.model.load_weights("./ddqn.h5")
+    # 모델 load
+    def load_model(self):
+        self.model.load_weights("./ddqn.h5")
 
     # 모델 생성.
+    # CNN layer사용
     def build_model(self):
         model = Sequential()
-        model.add(Dense(24, input_dim=self.state_size, activation='relu',
-                        kernel_initializer='he_uniform'))
-        model.add(Dense(24, activation='relu',
-                        kernel_initializer='he_uniform'))
-        model.add(Dense(self.action_size, activation='linear',
-                        kernel_initializer='he_uniform'))
+        model.add(Conv2D(32,(6,6),strides=(3,3),activation='relu',input_shape=self.state_size))
+        model.add(Conv2D(64,(4,4),strides=(2,2),activation='relu'))
+        model.add(Conv2D(64,(3,3), strides=(1,1),activation='relu'))
+        model.add(Flatten())
+        model.add(Dense(512,activation='relu'))
+        model.add(Dense(self.action_size))
         model.summary()
-        model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
+        model.compile(loss='mse',optimizer=Adam(lr=self.learning_rate))
         return model
 
     # 타겟모델에 학습모델 복사.
@@ -54,16 +57,17 @@ class DoubleDQNAgent:
         self.target_model.set_weights(self.model.get_weights())
 
     # 입실론 그리디 정책으로 action 구하기.
-    def get_action(self, state):
+    def get_action(self, history):
+        history = np.float32(history / 255.0) # 원래 픽셀값으로 변환.
         if np.random.rand() <= self.epsilon:
             return random.randrange(self.action_size)
         else:
-            q_value = self.model.predict(state)
+            q_value = self.model.predict(history)
             return np.argmax(q_value[0])
 
     # replay memory에 s,a,r,s' 저장
-    def append_sample(self, state, action, reward, next_state, done):
-        self.memory.append((state, action, reward, next_state, done))
+    def append_sample(self, history, action, reward, next_history, done):
+        self.memory.append((history, action, reward, next_history, done))
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
@@ -75,15 +79,15 @@ class DoubleDQNAgent:
         batch_size = min(self.batch_size, len(self.memory))
         mini_batch = random.sample(self.memory, batch_size)
 
-        update_input = np.zeros((batch_size, self.state_size))
-        update_target = np.zeros((batch_size, self.state_size))
+        update_input = np.zeros((batch_size, self.state_size[0], self.state_size[1], self.state_size[2]))
+        update_target = np.zeros((batch_size, self.state_size[0], self.state_size[1], self.state_size[2]))
         action, reward, done = [], [], []
 
         for i in range(batch_size):
-            update_input[i] = mini_batch[i][0]
+            update_input[i] = np.float32(mini_batch[i][0] / 255.) # 메모리 아끼기 위해 uint8저장한거 다시 픽셀값으로 변환
             action.append(mini_batch[i][1])
             reward.append(mini_batch[i][2])
-            update_target[i] = mini_batch[i][3]
+            update_target[i] = np.float32(mini_batch[i][3] / 255.)
             done.append(mini_batch[i][4])
 
         target = self.model.predict(update_input)   # s에 대한 학습모델 예측값
@@ -101,12 +105,6 @@ class DoubleDQNAgent:
                 # Q-Target = r + γQ(s’,argmax(Q(s’,a,ϴ),ϴ’))
                 # ϴ : 학습모델(model), ϴ’: 타겟모델(target_model)
                 target[i][action[i]] = reward[i] + self.discount_factor * (target_val[i][a])
-        #update_input : [[ 2.82693899e-02  8.18564289e-01 -7.39852290e-02 -1.21381609e+00]
-        #...
-        #[-1.59104670e-01 -1.75617289e+00  2.00567846e-01  2.68207934e+00]]
 
-        #target : [[  -4.9501233   -15.59309   ]
-        #...
-        #[ -22.555033   -100.        ]]
         # state에 대한 새로 얻은 Q값들로 학습모델 fit.
         self.model.fit(update_input, target, batch_size=self.batch_size, epochs=1, verbose=0)

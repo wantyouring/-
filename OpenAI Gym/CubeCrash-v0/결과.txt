@@ -1,0 +1,45 @@
+model 1 :
+    def build_model(self):
+        model = Sequential()
+        model.add(Conv2D(16,(4,4),strides=(2,2),activation='relu',input_shape=self.state_size))
+        model.add(Conv2D(32,(2,2),strides=(1,1),activation='relu'))
+        model.add(Flatten())
+        model.add(Dense(256,activation='relu'))
+        model.add(Dense(self.action_size))
+        model.summary()
+        model.compile(loss='mse',optimizer=Adam(lr=self.learning_rate))
+        return model
+
+model 2 :
+    def build_model(self):
+        model = Sequential()
+        model.add(Conv2D(32,(8,8),strides=(3,3),activation='relu',input_shape=self.state_size))
+        model.add(Conv2D(64,(4,4),strides=(2,2),activation='relu'))
+        model.add(Conv2D(64,(3,3), strides=(1,1),activation='relu'))
+        model.add(Flatten())
+        model.add(Dense(512,activation='relu'))
+        model.add(Dense(self.action_size))
+        model.summary()
+        model.compile(loss='mse',optimizer=Adam(lr=self.learning_rate))
+        return model
+=> 학습 잘 안됨.
+
+model 3 :
+    def build_model(self):
+        model = Sequential()
+        model.add(Conv2D(32,(6,6),strides=(3,3),activation='relu',input_shape=self.state_size))
+        model.add(Conv2D(64,(4,4),strides=(2,2),activation='relu'))
+        model.add(Conv2D(64,(3,3), strides=(1,1),activation='relu'))
+        model.add(Flatten())
+        model.add(Dense(512,activation='relu'))
+        model.add(Dense(self.action_size))
+        model.summary()
+        model.compile(loss='mse',optimizer=Adam(lr=self.learning_rate))
+        return model
+=> 잘한다!
+play결과
+- random : 105/500 success. rate : 0.21
+- model : 500/500 success. rate : 1.0
+
+기존 model1, model2의 DDQN agent정보를 저장안해서 model을 재사용할 수가 없었음.
+다음부터는 agent파일도 함께 저장하기.
