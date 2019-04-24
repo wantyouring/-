@@ -23,3 +23,5 @@ https://locallab-seoul.tistory.com/3 (tensorflow 모델 저장,  불러오기)
 https://jay.tech.blog/2018/07/27/deep-deterministic-policy-gradient/ (ddpg 참고)
 
 https://github.com/openai/gym/wiki/Table-of-environments (openai gym모델들 observation,action space 정리)
+
+파이썬과 케라스로 배우는 강화학습 (책 참고)
