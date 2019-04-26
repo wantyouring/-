@@ -8,6 +8,13 @@ model3 : state1개씩 학습.
 
 model4 : learning rate 줄여보자. (0.001 -> 0.00025)
 epsilon_min (0.01 -> 0.1)
+12000epi부터 0.1 -> 0.01로 다시 줄이기.
 
---학습중--
-model5 : 
+5600epi까지 학습.
+12000epi까지 학습.
+16500epi까지 학습.
+
+model5 : fully connected (1024,256) layer로 model변경.
+--학습중--(잘 되는중!)
+
+model6 : kernel_initializer he_uniform 없애보자. avg q max 줄어드는거때문에. cnn layer 적용해보자.

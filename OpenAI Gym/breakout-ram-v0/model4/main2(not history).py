@@ -75,14 +75,14 @@ if __name__ == "__main__":
                 print("episode:", e, "  score:", score, "  memory length:", len(agent.memory), "  epsilon:", agent.epsilon)
                 scores.append(score)
                 episodes.append(e)
-                if e < 200:
-                    agent.avg_q_max = 0  # 초기 비정상적인 값들로 그래프 망가지는 상황 방지.
                 avg_q_max_record.append(agent.avg_q_max / float(epi_step))
 
                 if e % 100 == 0:
                     pylab.figure(1) # score 그래프
                     pylab.plot(episodes, scores)
                     pylab.savefig("./ddqn.png")
+                    if e < 200:
+                        agent.avg_q_max = 0 # 초기 비정상적인 값들로 그래프 망가지는 상황 방지.
                     pylab.figure(2)  # avg_q_max 그래프
                     pylab.plot(episodes, avg_q_max_record)
                     pylab.savefig("./avg_q_max.png")

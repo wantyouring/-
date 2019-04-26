@@ -42,11 +42,14 @@ class DoubleDQNAgent:
     # fully connected layer사용
     def build_model(self):
         model = Sequential()
-        #model.add(Dense(1024, input_dim=self.state_size, activation='relu',
-        #                kernel_initializer='he_uniform'))
-        model.add(Dense(1024, input_dim=self.state_size, activation='relu'))
-        model.add(Dense(256, activation='relu'))
-        model.add(Dense(self.action_size, activation='linear'))
+        model.add(Dense(256, input_dim=self.state_size, activation='relu',
+                        kernel_initializer='he_uniform'))
+        model.add(Dense(256, activation='relu',
+                        kernel_initializer='he_uniform'))
+        model.add(Dense(128, activation='relu',
+                        kernel_initializer='he_uniform'))
+        model.add(Dense(self.action_size, activation='linear',
+                        kernel_initializer='he_uniform'))
         model.summary()
         model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
         return model
