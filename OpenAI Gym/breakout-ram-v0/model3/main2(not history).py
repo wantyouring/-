@@ -33,7 +33,7 @@ if __name__ == "__main__":
     action_size = 3 # start action 제외.
 
     agent = DoubleDQNAgent(state_size, action_size)
-    #agent.load_model() #@@@@@@@@@@@@@@@@@@@@모델 로드하기.
+    agent.load_model() #@@@@@@@@@@@@@@@@@@@@모델 로드하기.
     scores, episodes, avg_q_max_record = [], [], []
 
     for e in range(EPISODES):

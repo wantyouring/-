@@ -2,6 +2,12 @@ model1,2 : state3개 붙여 history로 학습.
 결과 : avg q max 계속 감소.
 
 model3 : state1개씩 학습.
---학습중--
+이어서 학습하기!!!!!!!!!!!!!!
+약1시간 + 2:00~11:30 학습.
+=> avg q max 0.5~0.6사이에서 더 안올라감.
 
-model4 : learning rate 줄여보자. 
+model4 : learning rate 줄여보자. (0.001 -> 0.00025)
+epsilon_min (0.01 -> 0.1)
+
+--학습중--
+model5 : 

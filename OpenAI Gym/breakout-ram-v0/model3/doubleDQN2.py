@@ -17,14 +17,14 @@ class DoubleDQNAgent:
 
         # DDQN 하이퍼 파라미터
         self.discount_factor = 0.99
-        self.learning_rate = 0.00025
+        self.learning_rate = 0.001
         self.epsilon = 1.0
         self.epsilon_decay = 0.999
-        self.epsilon_min = 0.1
+        self.epsilon_min = 0.01
         self.batch_size = 32
-        self.train_start = 30000
+        self.train_start = 10000
         self.update_target_rate = 3000
-        self.memory = deque(maxlen=100000)
+        self.memory = deque(maxlen=50000)
         self.avg_q_max = 0 # 학습 잘 되는지 확인.
 
         # 학습모델, 타겟모델 두 개 생성.
