@@ -14,7 +14,15 @@ epsilon_min (0.01 -> 0.1)
 12000epi까지 학습.
 16500epi까지 학습.
 
-model5 : fully connected (1024,256) layer로 model변경.
---학습중--(잘 되는중!)
+@model5 : fully connected (1024,256,3) layer로 model변경.
+--학습중--(4900epi까지 학습)
+breakout예제 168만 params. (1024,256,3) params 39만.
+kernel_initializer he_uniform 없앰. 
+12000epi까지 learning rate=0.00025까지 돌리고 0.001로 올림. epsilon min 0.1로 올림. epsilon decay 0.99로 줄임. ==> 잘 안됨. 원상복귀해서 이어서 learning
 
-model6 : kernel_initializer he_uniform 없애보자. avg q max 줄어드는거때문에. cnn layer 적용해보자.
+model6 : (2048,512,3) layer로 model 변경.=> 오래 걸릴 것 같음. 자기전에 돌리자. 우선 800epi까지 학습함.
+
+model7 : (256,256,3) layer로 model 변경. layer 간단하게. 우선 모델 2600epi까지 학습. 이어서 더 돌려보기.
+
+---------------------------
+model5가 가장 괜찮은 결과. 조금 학습하였음. 그러나 좋은 결과는 x.
