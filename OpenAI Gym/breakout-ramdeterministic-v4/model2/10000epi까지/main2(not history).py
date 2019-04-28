@@ -60,15 +60,11 @@ if __name__ == "__main__":
             next_state = np.reshape(next_state,[1,128])
 
             agent.avg_q_max += np.amax(agent.model.predict(state)[0]) # 학습 잘 되는지 확인 변수. qvalue 최댓값.
-            #reward = reward - 100 if life != info['ale.lives'] else reward # life깎이는 상황에 높은 패널티를 줘보자.
+
             # replay memory에 <s, a, r, s',done> 저장.
-            if life != info['ale.lives']:
-                agent.append_sample(state, action, reward - 100, next_state, done)
-            else:
-                agent.append_sample(state, action, reward, next_state, done)
+            agent.append_sample(state, action, reward, next_state, done)
             # 정보들 기반해 학습.
             agent.train_model()
-
             score += reward
             state = next_state
 
