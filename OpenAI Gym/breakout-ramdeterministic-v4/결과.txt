@@ -7,4 +7,14 @@ model2 : 1024relu + 512relu + 3linear layer.
 => 약10000epi 학습한 결과 잘 수행할 때는 6~11점, 잘 안될 때는 2~6점 정도로 오르락내리락 나옴. 어느정도 수행하나 이 이상으로 agent가 결과를 내려면 더 많이 학습 시켜봐야 할듯함. 자기전에 이 model 계속 학습시켜보자.
 
 model3 : model2와 layer는 같고 life 깎인 상황에서 reward -100으로 크게 패널티를 줘보자.
-=> 점수가 낮은 경우가 뒤로 갈수록 아예 나오지 않음. 더 학습해보자.
+=> 점수가 낮은 경우가 뒤로 갈수록 아예 나오지 않음. 더 학습해보자.(현재 2600epi까지 학습)
+
+model4 : 256relu + 128relu + 3linear layer에 reward-100패널티.
+=> 11점 이상을 거의 다 못넘어감.
+
+model5 : 256relu + 256relu + 256relu + 3linear layer에 reward-100패널티.
+=> 11이상을 못올라가며 처음부분은 결과가 좋다 뒤로 갈 수록 결과가 안좋아짐.(?)
+
+model6 : 256relu + 256relu + 256relu + 3linear layer에 reward-100패널티.에 lr = 0.00001로 많이 줄임.
+=> lr을 줄이니 11이상으로 잘 올라간다. learning rate가 커서 최적화를 잘 못했던 것.
+@@@학습중.

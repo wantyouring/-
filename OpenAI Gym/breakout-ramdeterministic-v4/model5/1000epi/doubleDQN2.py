@@ -17,7 +17,7 @@ class DoubleDQNAgent:
 
         # DDQN 하이퍼 파라미터
         self.discount_factor = 0.99
-        self.learning_rate = 0.00001
+        self.learning_rate = 0.0025
         self.epsilon = 1.0
         self.epsilon_decay = 0.9999
         self.epsilon_min = 0.1
