@@ -3,9 +3,11 @@
 import gym
 import pylab
 import numpy as np
+import gym.wrappers as wrappers
 from doubleDQN2 import DoubleDQNAgent
 
-EPISODES = 20 # 처음은 random으로 수행, 나중에는 학습model로 수행
+
+EPISODES = 1 # 처음은 random으로 수행, 나중에는 학습model로 수행
 global_step = 0
 
 def change_action(action):
@@ -20,6 +22,7 @@ def change_action(action):
 
 if __name__ == "__main__":
     env = gym.make('Breakout-ramDeterministic-v4')
+    env = wrappers.Monitor(env,"./results",force = True)
     state_size = 128
     action_size = 3
 
@@ -51,6 +54,7 @@ if __name__ == "__main__":
                 print("episode:", e, "  score:", score)
                 scores.append(score)
                 episodes.append(e)
+                break
 
             if life != info['ale.lives']:
                 life = info['ale.lives']
@@ -89,12 +93,13 @@ if __name__ == "__main__":
                 if e % 5 == 0:
                     pylab.plot(episodes, scores)
                     pylab.savefig("./play_score.png")
+                break
 
             if life != info['ale.lives']:
                 life = info['ale.lives']
                 for i in range(5):
                     state, _, _, _ = env.step(1)
                 state = np.reshape(state, [1, 128])
-
+    env.close()
     print("random : {}/{} success. rate : {}".format(random_success_cnt,EPISODES,random_success_cnt/EPISODES))
     print("model : {}/{} success. rate : {}".format(model_success_cnt,EPISODES,model_success_cnt/EPISODES))
