@@ -17,4 +17,4 @@ model5 : 256relu + 256relu + 256relu + 3linear layer에 reward-100패널티.
 
 model6 : 256relu + 256relu + 256relu + 3linear layer에 reward-100패널티.에 lr = 0.00001로 많이 줄임.
 => lr을 줄이니 11이상으로 잘 올라간다. learning rate가 커서 최적화를 잘 못했던 것.
-@@@학습중.
+학습 잘 된다! learning rate가 문제였던것. 기존 breakout-ram-v0에서도 lr 줄이면 학습 잘 되는지 확인하기.
