@@ -7,7 +7,7 @@ import gym.wrappers as wrappers
 from doubleDQN2 import DoubleDQNAgent
 
 
-EPISODES = 5 # 처음은 random으로 수행, 나중에는 학습model로 수행
+EPISODES = 1 # 처음은 random으로 수행, 나중에는 학습model로 수행
 global_step = 0
 
 def change_action(action):

@@ -42,14 +42,12 @@ class DoubleDQNAgent:
     # fully connected layer사용
     def build_model(self):
         model = Sequential()
-        model.add(Dense(256, input_dim=self.state_size, activation='relu',
-                        kernel_initializer='he_uniform'))
-        model.add(Dense(256, activation='relu',
-                        kernel_initializer='he_uniform'))
-        model.add(Dense(128, activation='relu',
-                        kernel_initializer='he_uniform'))
-        model.add(Dense(self.action_size, activation='linear',
-                        kernel_initializer='he_uniform'))
+        #model.add(Dense(1024, input_dim=self.state_size, activation='relu',
+        #                kernel_initializer='he_uniform'))
+        model.add(Dense(256, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(256, activation='relu'))
+        model.add(Dense(256, activation='relu'))
+        model.add(Dense(self.action_size, activation='linear'))
         model.summary()
         model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
         return model
@@ -59,17 +57,16 @@ class DoubleDQNAgent:
         self.target_model.set_weights(self.model.get_weights())
 
     # 입실론 그리디 정책으로 action 구하기.
-    # state를 history 단위로 입력하고(방향성 정보 위해서)
-    def get_action(self, history):
+    def get_action(self, state):
         if np.random.rand() <= self.epsilon:
             return random.randrange(self.action_size)
         else:
-            q_value = self.model.predict(history)
+            q_value = self.model.predict(state)
             return np.argmax(q_value[0])
 
     # replay memory에 s,a,r,s' 저장
-    def append_sample(self, history, action, reward, next_history, done):
-        self.memory.append((history, action, reward, next_history, done))
+    def append_sample(self, state, action, reward, next_state, done):
+        self.memory.append((state, action, reward, next_state, done))
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
