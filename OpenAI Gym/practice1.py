@@ -7,11 +7,11 @@ import numpy as np
 from skimage.color import rgb2gray
 from skimage.transform import resize
 
-env = gym.make('Breakout-ramDeterministic-v4')
+env = gym.make('Bowling-ramDeterministic-v4')
 #env = gym.make('CubeCrash-v0')
 f = open("log.txt","w")
 np.set_printoptions(threshold=2**31-1) #배열 생략없이 표시
-epi_num = 5000
+epi_num = 10
 rSum = 0
 graph_x, graph_y = [],[]
 
@@ -21,15 +21,12 @@ for episode in range(epi_num):
     step_count = 0
     rSum = 0
     while not done :
-        #env.render()
+        env.render()
         action = env.action_space.sample()
         print(action)
-        state, reward, done, _ = env.step(3) #0: 정지, 1: 시작, 2: 오른쪽 이동, 3: 왼쪽 이동
-        # ㄴ시작할 때 1action 쓰고, 그 후로는 action 0,2,3만 사용. action space를 3으로 주고 get action에서 0,1,2 =>0,2,3으로 치환해주기.
+        state, reward, done, _ = env.step(action)
         #processed_state = np.uint8(rgb2gray(state)*255)
-        env.render()
-        print(state.shape)
-        print(env.action_space)
+        print(state)
         #print(processed_state.shape)
         #f.write("state : \n{}\n".format(state))
         #f.write("action : \n{}\n".format(action))
@@ -45,7 +42,7 @@ for episode in range(epi_num):
         f.close()
         rSum += reward
         step_count += 1
-        time.sleep(10)
+        time.sleep(0.03)
 
     graph_x.append(episode)
     graph_y.append(step_count)
