@@ -26,4 +26,8 @@ https://github.com/openai/gym/wiki/Table-of-environments (openai gym모델들 ob
 
 파이썬과 케라스로 배우는 강화학습 (책 참고)
 
+---얼굴인식---
+
 https://medium.com/@jongdae.lim/%EA%B8%B0%EA%B3%84-%ED%95%99%EC%8A%B5-machine-learning-%EC%9D%80-%EC%A6%90%EA%B2%81%EB%8B%A4-part-4-63ed781eee3c (얼굴인식 학습과정)
+
+https://github.com/ageitgey/face_recognition/issues/175 (face recognition library들 설치 issue)
