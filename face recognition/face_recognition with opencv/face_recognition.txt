@@ -1,0 +1,5 @@
+소스코드 참고 url : https://hackernoon.com/face-recognition-using-opencv-a-step-by-step-guide-to-build-a-facial-recognition-system-8da97cd89847
+
+이미지 파일, 동영상 파일 : https://www.youtube.com/user/JFlaMusic
+
+동영상파일, 이미지파일 입력받아 동영상에서 해당 이미지들 얼굴 찾아 표시해 avi파일 생성.
