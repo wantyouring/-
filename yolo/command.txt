@@ -13,10 +13,18 @@ darknet.exe detect cfg/yolov3.cfg yolov3.weights dog.jpg
 
 ---custom data train---
 학습command
-darknet.exe detector train data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg nfpa_test/darknet53.conv.74 -dont_show
+darknet.exe detector train data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg nfpa_test/darknet53.conv.74
+-dont_show : 그래프 안띄우기
 
 이어학습command
 darknet.exe detector train data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg backup/이어서 학습할 파일
+
+학습 weight 성능테스트
+darknet.exe detector map data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg backup/yolo-nfpa_last.weights
+
+사진파일로 테스트
+darknet.exe detector data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg backup/yolo-nfpa_last.weights
+ㄴ이후 이미지파일 경로 입력
 
 1. data파일, 2. cfg파일, 3. weight파일 필요.
 

@@ -1,4 +1,5 @@
 학습할 custom data labeling전에 NFPA dataset으로 학습 해보는중...
+추가로 라벨링 된 fruits dataset 캐글에서 받아 활용해보기.
 
 참고 : 
 nfpa custom data로 학습하기 : https://medium.com/@manivannan_data/how-to-train-yolov2-to-detect-custom-objects-9010df784f36
@@ -12,3 +13,4 @@ max_batches = 2000으로 줄임.(class 1개)
 steps=1600,1800로 줄임(class 1개)
 classes=1로 3곳 모두 바꿈.
 filter 3곳 바꿈.
+
