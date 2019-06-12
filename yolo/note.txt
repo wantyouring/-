@@ -1,0 +1,14 @@
+학습할 custom data labeling전에 NFPA dataset으로 학습 해보는중...
+
+참고 : 
+nfpa custom data로 학습하기 : https://medium.com/@manivannan_data/how-to-train-yolov2-to-detect-custom-objects-9010df784f36
+custom data 학습 yolo사용 guide : https://github.com/AlexeyAB/darknet#how-to-train-to-detect-your-custom-objects
+
+필요한 파일들 :
+1. .data파일, 
+
+.cfg수정사항: (자세한건 링크 참고)
+max_batches = 2000으로 줄임.(class 1개)
+steps=1600,1800로 줄임(class 1개)
+classes=1로 3곳 모두 바꿈.
+filter 3곳 바꿈.
