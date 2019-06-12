@@ -7,10 +7,21 @@ darknet.exe detector demo cfg/voc.data cfg/yolov2-tiny-voc.cfg yolov2-tiny-voc.w
 -coco data, yolov3.weights 사용
 darknet.exe detector demo data/coco.data yolov3.cfg yolov3.weights http://192.168.0.6:8080/video?dummy=param.mjpg -i 0
 
+-image에 yolo object detection적용
+darknet.exe detect cfg/yolov3.cfg yolov3.weights dog.jpg
 
 
+---custom data train---
+학습command
+darknet.exe detector train data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg nfpa_test/darknet53.conv.74 -dont_show
+
+이어학습command
+darknet.exe detector train data/nfpa/nfpa.data nfpa_test/yolo-nfpa.cfg backup/이어서 학습할 파일
+
+1. data파일, 2. cfg파일, 3. weight파일 필요.
 
 ------보고서--------
+(+) 기계학습 방법론적 부분 추가하기
 1. 서론/배경
  ○ 연구하고자 하는 일반적인 분야
  ○ 해결하고자 문제
