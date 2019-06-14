@@ -1,5 +1,6 @@
-학습할 custom data labeling전에 NFPA dataset으로 학습 해보는중...
-추가로 라벨링 된 fruits dataset 캐글에서 받아 활용해보기.
+학습할 custom data labeling전에 NFPA dataset으로 학습.
+추가로 라벨링 된 dataset 캐글에서 받아 활용해보기.
+darkflow 학습 테스트.
 
 참고 : 
 nfpa custom data로 학습하기 : https://medium.com/@manivannan_data/how-to-train-yolov2-to-detect-custom-objects-9010df784f36
